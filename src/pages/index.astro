@@ -1,11 +1,21 @@
 ---
+import { getCollection } from "astro:content";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import IconRss from "@/assets/icons/IconRss.svg";
+import Card from "@/components/Card.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
+import Hr from "@/components/Hr.astro";
+import LinkButton from "@/components/LinkButton.astro";
 import Socials from "@/components/Socials.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import { SITE, SOCIALS } from "@/config";
 import Layout from "@/layouts/Layout.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+
+const posts = await getCollection("blog");
+const sortedPosts = getSortedPosts(posts);
+const recentPosts = sortedPosts.filter(({ data }) => !data.draft).slice(0, SITE.postPerIndex);
 ---
 
 <Layout description="Shaun Hawk: Lead Developer of Huckleberry Services at FSM Controls. PHP, JS/TS, Rust and Go.">
@@ -23,7 +33,7 @@ import Layout from "@/layouts/Layout.astro";
           />
         </a>
         <div class="flex-1 text-center sm:text-left">
-          <div class="flex items-center gap-2 justify-center sm:justify-start">
+          <div class="flex items-center gap-2 justify-center sm:justify-start flex-wrap">
             <h1 class="my-2 inline-block text-2xl font-bold sm:my-4 sm:text-3xl">
               Hi, I'm Shaun.
             </h1>
@@ -41,6 +51,13 @@ import Layout from "@/layouts/Layout.astro";
               />
               <span class="sr-only">RSS Feed</span>
             </a>
+            <iframe
+              src="https://github.com/sponsors/shawk08033/button"
+              title="Sponsor shawk08033"
+              height="32"
+              width="114"
+              class="inline-block align-middle border-0 rounded-md"
+            />
           </div>
           <p>
             Lead Developer of Huckleberry Services at FSM Controls.<br />
@@ -58,7 +75,30 @@ import Layout from "@/layouts/Layout.astro";
       </div>
     </section>
 
-    <p class="mt-8 text-center text-lg text-gray-500 dark:text-gray-400">Posts Coming Soon!</p>
+    <Hr />
+
+    {
+      recentPosts.length > 0 ? (
+        <>
+          <section id="recent-posts" class="pt-12 pb-6">
+            <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+            <ul class="mt-4">
+              {recentPosts.map((entry) => (
+                <Card variant="h3" {...entry} showImage={false} />
+              ))}
+            </ul>
+          </section>
+          <div class="my-8 text-center">
+            <LinkButton href="/posts/">
+              All Posts
+              <IconArrowRight class="inline-block" />
+            </LinkButton>
+          </div>
+        </>
+      ) : (
+        <p class="mt-8 text-center text-lg text-gray-500 dark:text-gray-400">Posts Coming Soon!</p>
+      )
+    }
   </main>
   <Footer />
 </Layout>

@@ -5,6 +5,7 @@ import { getPath } from "@/utils/getPath";
 import { calculateReadingTime } from "@/utils/readingTime";
 import { slugifyStr } from "@/utils/slugify";
 import Datetime from "./Datetime.astro";
+import Tag from "./Tag.astro";
 
 export interface Props extends CollectionEntry<"blog"> {
   variant?: "h2" | "h3";
@@ -13,7 +14,7 @@ export interface Props extends CollectionEntry<"blog"> {
 
 const { variant = "h2", data, id, filePath, body, showImage = true } = Astro.props;
 
-const { title, description, pubDatetime, modDatetime, timezone, heroImage } = data;
+const { title, description, pubDatetime, modDatetime, timezone, heroImage, tags } = data;
 const readingTime = calculateReadingTime(body ?? "");
 
 const headerProps = {
@@ -59,7 +60,16 @@ const headerProps = {
           />
         </a>
       )}
-      <p class="opacity-80 flex-1">{description}</p>
+      <div class="flex-1">
+        <p class="opacity-80">{description}</p>
+        {tags && tags.length > 0 && (
+          <ul class="flex flex-wrap gap-x-2 gap-y-1 mt-2" aria-label="Tags">
+            {tags.map((tagName) => (
+              <Tag tag={slugifyStr(tagName)} tagName={tagName} size="sm" />
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   </div>
 </li>

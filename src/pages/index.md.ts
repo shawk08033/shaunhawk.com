@@ -5,6 +5,8 @@ export const GET: APIRoute = async () => {
 
 Lead Developer of Huckleberry Services at FSM Controls. Still pumping out PHP while slowly moving to JS/TS, Rust and Go.
 
+<iframe src="https://github.com/sponsors/shawk08033/button" title="Sponsor shawk08033" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+
 ## Navigation
 
 - [About](/about.md)
