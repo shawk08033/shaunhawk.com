@@ -2,7 +2,7 @@
 title: "Claude $20 vs $100 5X plan"
 description: "TBD"
 pubDatetime: 2025-03-04
-draft: true
+draft: false
 tags: ["AI", "development", "coding"]
 ---
 
