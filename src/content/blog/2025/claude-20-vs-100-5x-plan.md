@@ -1,9 +1,9 @@
 ---
 title: "Claude $20 vs $100 5X plan"
-description: "TBD"
+description: "Why I upgraded to Claude's $100 5X plan, what I got done in a week at 30% usage, some wins, some struggles."
 pubDatetime: 2025-03-04
 draft: false
-tags: ["AI", "development", "coding"]
+tags: ["AI", "Claude", "development", "coding", "productivity"]
 ---
 
 After only using Cursor as my sole AI coding tool for what feels like the past two years, I finally signed up for Claude Code's $20 plan. Within a week I was making major changes at my main focus for my full-time job—[Huckleberry Service](https://huckleberryservices.com/)—but I kept hitting my limits quickly. So I added Codex's $20 plan, mindful that I'm now paying $40+ a month for AI coding tools used for my employment. Codex's limits seemed much more generous than Claude's for its $20 plan.
