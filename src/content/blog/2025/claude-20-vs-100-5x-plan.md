@@ -1,7 +1,7 @@
 ---
 title: "Claude $20 vs $100 5X plan"
 description: "Why I upgraded to Claude's $100 5X plan, what I got done in a week at 30% usage, some wins, some struggles."
-pubDatetime: 2025-03-04
+pubDatetime: 2026-03-04
 draft: false
 tags: ["AI", "Claude", "development", "coding", "productivity"]
 ---
