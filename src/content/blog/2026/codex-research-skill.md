@@ -2,7 +2,6 @@
 title: "Codex Does the Searching: A Claude Code Research Skill"
 description: "A Claude Code skill that offloads live web research to Codex (GPT-5.5) while Claude orchestrates decomposition, verification, and synthesis."
 pubDatetime: 2026-07-09
-draft: true
 tags: ["AI", "Claude", "Codex", "development", "open source"]
 ---
 
