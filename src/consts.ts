@@ -27,6 +27,7 @@ interface Site {
   dynamicOgImage: boolean;
   lang: string;
   timezone: string;
+  twitterHandle: string;
 }
 
 // Site configuration
@@ -51,6 +52,7 @@ export const SITE: Site = {
   dynamicOgImage: true,
   lang: "en",
   timezone: "America/New_York",
+  twitterHandle: "@ShaunHawkCode",
 };
 
 export const SITE_TITLE = SITE.title;

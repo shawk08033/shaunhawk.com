@@ -19,7 +19,10 @@ const featuredPost = sortedPosts[0];
 const recentPosts = sortedPosts.slice(1, SITE.postPerIndex);
 ---
 
-<Layout description="Shaun Hawk: Senior Manager, Data Management & Technology at FSM Controls. Leading the rollout, modernization, and go-to-market for Huckleberry Services.">
+<Layout
+  title={`${SITE.title} — Blog, Projects & Resume`}
+  description="Shaun Hawk: Senior Manager, Data Management & Technology at FSM Controls. Leading the rollout, modernization, and go-to-market for Huckleberry Services."
+>
   <StructuredData type="WebSite" data={{}} />
   <StructuredData type="Person" data={{}} />
   <Header />
@@ -30,7 +33,8 @@ const recentPosts = sortedPosts.slice(1, SITE.postPerIndex);
 
     {
       featuredPost ? (
-        <section id="featured-post" class="pt-8 pb-4">
+        <section id="featured-post" class="pt-8 pb-4" aria-labelledby="featured-post-heading">
+          <h2 id="featured-post-heading" class="sr-only">Featured post</h2>
           <FeaturedPost post={featuredPost} />
         </section>
       ) : null
@@ -39,8 +43,8 @@ const recentPosts = sortedPosts.slice(1, SITE.postPerIndex);
     {
       recentPosts.length > 0 ? (
         <>
-          <section id="recent-posts" class="pt-10 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">More Posts</h2>
+          <section id="recent-posts" class="pt-10 pb-6" aria-labelledby="recent-posts-heading">
+            <h2 id="recent-posts-heading" class="text-2xl font-semibold tracking-wide">More Posts</h2>
             <ul class="mt-4">
               {recentPosts.map((entry) => (
                 <Card variant="h3" {...entry} />
