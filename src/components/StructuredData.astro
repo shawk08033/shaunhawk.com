@@ -19,6 +19,7 @@ if (type === "BlogPosting") {
       name: data.author || "Shaun Hawk",
       url: "https://shaunhawk.com/about",
     },
+    inLanguage: "en-US",
     datePublished: data.pubDatetime.toISOString(),
     dateModified: data.modDatetime?.toISOString() || data.pubDatetime.toISOString(),
     publisher: {
@@ -53,6 +54,11 @@ if (type === "BlogPosting") {
       "https://linkedin.com/in/shaun-r-hawk-3b2ab174",
     ],
     jobTitle: "Senior Manager, Data Management & Technology",
+    worksFor: {
+      "@type": "Organization",
+      name: "FSM Controls",
+      url: "https://fsmcontrols.com/",
+    },
     description:
       "Senior Manager, Data Management & Technology at FSM Controls. Leading the rollout, modernization, and go-to-market for Huckleberry Services.",
   };

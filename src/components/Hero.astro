@@ -22,21 +22,26 @@ import { SOCIALS } from "@/config";
       <div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
         <h1 class="text-2xl font-bold sm:text-3xl">Hi, I'm Shaun.</h1>
         <a
-          target="_blank"
           href="/rss.xml"
           class="inline-block"
-          aria-label="rss feed"
+          aria-label="Subscribe to RSS feed"
           title="RSS Feed"
         >
-          <IconRss width={20} height={20} class="scale-125 stroke-accent stroke-3" />
+          <IconRss
+            width={20}
+            height={20}
+            class="scale-125 stroke-accent stroke-3"
+            aria-hidden="true"
+          />
           <span class="sr-only">RSS Feed</span>
         </a>
         <iframe
           src="https://github.com/sponsors/shawk08033/button"
-          title="Sponsor shawk08033"
+          title="Sponsor Shaun Hawk on GitHub"
           height="32"
           width="114"
           class="inline-block align-middle rounded-md border-0"
+          loading="lazy"
         />
       </div>
 
@@ -50,6 +55,8 @@ import { SOCIALS } from "@/config";
         <a
           href="https://huckleberryservices.com/"
           class="text-accent decoration-dashed underline-offset-4 hover:underline"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           Huckleberry Services
         </a>.

@@ -39,7 +39,8 @@ const headerProps = {
     </a>
     <div class="flex items-center gap-3 mb-3">
       <Datetime {pubDatetime} {modDatetime} {timezone} />
-      <span class="text-sm italic opacity-80">• {readingTime}</span>
+      <span class="text-sm italic opacity-80" aria-hidden="true">•</span>
+      <span class="text-sm italic opacity-80">{readingTime}</span>
     </div>
     <div class="flex gap-4 items-start">
       {showImage && heroImage && (
@@ -49,7 +50,7 @@ const headerProps = {
         >
           <Image
             src={heroImage}
-            alt={title}
+            alt={`Thumbnail for ${title}`}
             width={140}
             height={79}
             class="rounded shadow-sm transition-all duration-200 group-hover:shadow-md group-hover:scale-105 object-cover"

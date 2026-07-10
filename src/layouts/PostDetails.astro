@@ -71,6 +71,8 @@ const layoutProps = {
   modDatetime,
   canonicalURL: computedCanonicalURL,
   ogImage,
+  ogType: "article" as const,
+  articleTags: tags,
   scrollSmooth: true,
 };
 
@@ -116,7 +118,9 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
     ]}
     data-pagefind-body
   >
+    <article id="article" aria-labelledby="post-title">
     <h1
+      id="post-title"
       transition:name={slugifyStr(title)}
       class="inline-block text-2xl font-bold text-accent sm:text-3xl"
     >
@@ -128,7 +132,7 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
         {
           readingTime && (
             <>
-              <span class="text-foreground/30">•</span>
+              <span class="text-foreground/30" aria-hidden="true">•</span>
               <span class="text-sm text-foreground/60">{readingTime}</span>
             </>
           )
@@ -143,23 +147,25 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
         </ul>
       )
     }
-    <article id="article" class="mx-auto prose mt-6 max-w-3xl">
+    <div class="prose mx-auto mt-6 max-w-3xl">
       {
         heroImage && (
           <img
             src={heroImage}
-            alt=""
+            alt={`Hero image for ${title}`}
             class="mb-8 aspect-video w-full rounded-md object-cover"
             loading="lazy"
+            decoding="async"
           />
         )
       }
       <Content />
-    </article>
+    </div>
 
-    <hr class="my-8 border-dashed" />
+    <hr class="my-8 border-dashed" aria-hidden="true" />
 
     <EditPost class="sm:hidden" {hideEditPost} {post} />
+    </article>
 
     <div
       class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4"
@@ -168,9 +174,11 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
 
       <button
         id="back-to-top"
+        type="button"
         class="focus-outline py-1 whitespace-nowrap hover:opacity-75"
+        aria-label="Back to top of page"
       >
-        <IconChevronLeft class="inline-block rotate-90" />
+        <IconChevronLeft class="inline-block rotate-90" aria-hidden="true" />
         <span>Back to Top</span>
       </button>
     </div>
