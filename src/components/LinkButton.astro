@@ -11,9 +11,7 @@ export interface Props {
 const { id, href, class: className = "", ariaLabel, title, disabled = false } = Astro.props;
 
 const isExternal = href.startsWith("http") || href.startsWith("//");
-const externalProps = isExternal
-  ? { target: "_blank", rel: "noopener noreferrer" }
-  : {};
+const externalProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
 ---
 
 {
