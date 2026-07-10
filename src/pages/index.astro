@@ -1,90 +1,49 @@
 ---
 import { getCollection } from "astro:content";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import IconRss from "@/assets/icons/IconRss.svg";
 import Card from "@/components/Card.astro";
+import FeaturedPost from "@/components/FeaturedPost.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
+import Hero from "@/components/Hero.astro";
 import Hr from "@/components/Hr.astro";
 import LinkButton from "@/components/LinkButton.astro";
-import Socials from "@/components/Socials.astro";
 import StructuredData from "@/components/StructuredData.astro";
-import { SITE, SOCIALS } from "@/config";
+import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 
 const posts = await getCollection("blog");
-const sortedPosts = getSortedPosts(posts);
-const recentPosts = sortedPosts.filter(({ data }) => !data.draft).slice(0, SITE.postPerIndex);
+const sortedPosts = getSortedPosts(posts).filter(({ data }) => !data.draft);
+const featuredPost = sortedPosts[0];
+const recentPosts = sortedPosts.slice(1, SITE.postPerIndex);
 ---
 
-<Layout description="Shaun Hawk: Lead Developer of Huckleberry Services at FSM Controls. PHP, JS/TS, Rust and Go.">
+<Layout description="Shaun Hawk: Senior Manager, Data Management & Technology at FSM Controls. Leading the rollout, modernization, and go-to-market for Huckleberry Services.">
   <StructuredData type="WebSite" data={{}} />
   <StructuredData type="Person" data={{}} />
   <Header />
   <main id="main-content" data-layout="index">
-    <section id="hero" class="pt-6 pb-4">
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a href="/about" class="block mx-auto sm:mx-0 group">
-          <img 
-            src="/profile.jpg" 
-            alt="Shaun Hawk" 
-            class="w-40 h-40 rounded-full object-cover flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
-          />
-        </a>
-        <div class="flex-1 text-center sm:text-left">
-          <div class="flex items-center gap-2 justify-center sm:justify-start flex-wrap">
-            <h1 class="my-2 inline-block text-2xl font-bold sm:my-4 sm:text-3xl">
-              Hi, I'm Shaun.
-            </h1>
-            <a
-              target="_blank"
-              href="/rss.xml"
-              class="inline-block"
-              aria-label="rss feed"
-              title="RSS Feed"
-            >
-              <IconRss
-                width={20}
-                height={20}
-                class="scale-125 stroke-accent stroke-3"
-              />
-              <span class="sr-only">RSS Feed</span>
-            </a>
-            <iframe
-              src="https://github.com/sponsors/shawk08033/button"
-              title="Sponsor shawk08033"
-              height="32"
-              width="114"
-              class="inline-block align-middle border-0 rounded-md"
-            />
-          </div>
-          <p>
-            Lead Developer of Huckleberry Services at FSM Controls.<br />
-            Still pumping out PHP while slowly moving to JS/TS, Rust and Go.
-          </p>
-          {
-            // only display if at least one social link is enabled
-            SOCIALS.filter((social) => social.active).length > 0 && (
-              <div class="mt-4 flex flex-row items-center justify-center sm:justify-start">
-                <Socials />
-              </div>
-            )
-          }
-        </div>
-      </div>
-    </section>
+    <Hero />
 
     <Hr />
 
     {
+      featuredPost ? (
+        <section id="featured-post" class="pt-8 pb-4">
+          <FeaturedPost post={featuredPost} />
+        </section>
+      ) : null
+    }
+
+    {
       recentPosts.length > 0 ? (
         <>
-          <section id="recent-posts" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+          <section id="recent-posts" class="pt-10 pb-6">
+            <h2 class="text-2xl font-semibold tracking-wide">More Posts</h2>
             <ul class="mt-4">
               {recentPosts.map((entry) => (
-                <Card variant="h3" {...entry} showImage={false} />
+                <Card variant="h3" {...entry} />
               ))}
             </ul>
           </section>
@@ -95,9 +54,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.draft).slice(0, SITE.
             </LinkButton>
           </div>
         </>
-      ) : (
+      ) : !featuredPost ? (
         <p class="mt-8 text-center text-lg text-gray-500 dark:text-gray-400">Posts Coming Soon!</p>
-      )
+      ) : null
     }
   </main>
   <Footer />

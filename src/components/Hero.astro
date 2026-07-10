@@ -1,0 +1,96 @@
+---
+import IconRss from "@/assets/icons/IconRss.svg";
+import Socials from "@/components/Socials.astro";
+import { FOCUS_AREAS } from "@/data/projects";
+import { SOCIALS } from "@/config";
+---
+
+<section
+  id="hero"
+  class="hero-panel relative overflow-hidden rounded-xl border border-border px-5 py-8 sm:px-8 sm:py-10"
+>
+  <div class="flex flex-col items-start gap-6 sm:flex-row">
+    <a href="/about" class="group mx-auto block shrink-0 sm:mx-0">
+      <img
+        src="/profile.jpg"
+        alt="Shaun Hawk"
+        class="h-36 w-36 rounded-full object-cover ring-2 ring-accent/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg sm:h-40 sm:w-40"
+      />
+    </a>
+
+    <div class="flex-1 text-center sm:text-left">
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+        <h1 class="text-2xl font-bold sm:text-3xl">Hi, I'm Shaun.</h1>
+        <a
+          target="_blank"
+          href="/rss.xml"
+          class="inline-block"
+          aria-label="rss feed"
+          title="RSS Feed"
+        >
+          <IconRss width={20} height={20} class="scale-125 stroke-accent stroke-3" />
+          <span class="sr-only">RSS Feed</span>
+        </a>
+        <iframe
+          src="https://github.com/sponsors/shawk08033/button"
+          title="Sponsor shawk08033"
+          height="32"
+          width="114"
+          class="inline-block align-middle rounded-md border-0"
+        />
+      </div>
+
+      <p class="mt-3 text-lg opacity-90">
+        Notes on AI tooling, homelab projects, and building software in the real world.
+      </p>
+
+      <p class="mt-3">
+        Senior Manager, Data Management & Technology at FSM Controls.<br />
+        Charged with the full rollout, modernization, and go-to-market for
+        <a
+          href="https://huckleberryservices.com/"
+          class="text-accent decoration-dashed underline-offset-4 hover:underline"
+        >
+          Huckleberry Services
+        </a>.
+      </p>
+
+      <ul class="mt-4 flex flex-wrap justify-center gap-2 sm:justify-start" aria-label="Focus areas">
+        {
+          FOCUS_AREAS.map((area) => (
+            <li>
+              <span class="inline-block rounded-full border border-border bg-background/80 px-3 py-1 text-sm text-foreground/80">
+                {area}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      {
+        SOCIALS.filter((social) => social.active).length > 0 && (
+          <div class="mt-5 flex justify-center sm:justify-start">
+            <Socials />
+          </div>
+        )
+      }
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-panel {
+    background:
+      radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent) 12%, transparent), transparent 55%),
+      radial-gradient(ellipse at bottom left, color-mix(in srgb, var(--accent) 6%, transparent), transparent 50%),
+      var(--background);
+  }
+
+  html[data-theme="dark"] .hero-panel {
+    background:
+      radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent) 18%, transparent), transparent 55%),
+      radial-gradient(ellipse at bottom left, color-mix(in srgb, var(--accent) 8%, transparent), transparent 50%),
+      var(--background);
+  }
+</style>

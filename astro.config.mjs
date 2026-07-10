@@ -59,7 +59,7 @@ export default defineConfig({
 	          item.lastmod = new Date().toISOString();
 	        }
 	        // Main section pages
-	        else if (url.endsWith('/posts') || url.endsWith('/about') || url.endsWith('/search')) {
+	        else if (url.endsWith('/posts') || url.endsWith('/about') || url.endsWith('/search') || url.endsWith('/projects')) {
 	          item.priority = 0.9;
 	          item.changefreq = ChangeFreqEnum.WEEKLY;
 	        }
@@ -79,11 +79,7 @@ export default defineConfig({
 	          item.priority = 0.4;
 	          item.changefreq = ChangeFreqEnum.YEARLY;
 	        }
-	        // Tag pages - low priority
-	        else if (url.includes('/tags/')) {
-	          item.priority = 0.1;
-	          item.changefreq = ChangeFreqEnum.YEARLY;
-	        }
+	        // Tag pages removed — tags display on individual posts only
 	        // Pagination pages
 	        else if (url.match(/\/page\/\d+$/)) {
 	          item.priority = 0.4;
@@ -103,7 +99,7 @@ export default defineConfig({
       manifest: {
         name: "Shaun Hawk",
         short_name: "shaunhawk",
-        description: "Lead Developer of Huckleberry Services at FSM Controls. PHP, JS/TS, Rust and Go.",
+        description: "Senior Manager, Data Management & Technology at FSM Controls. Leading the rollout, modernization, and go-to-market for Huckleberry Services.",
         theme_color: "#006cac",
         background_color: "#fdfdfd",
         display: "standalone",

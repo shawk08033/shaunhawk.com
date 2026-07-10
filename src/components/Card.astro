@@ -65,7 +65,7 @@ const headerProps = {
         {tags && tags.length > 0 && (
           <ul class="flex flex-wrap gap-x-2 gap-y-1 mt-2" aria-label="Tags">
             {tags.map((tagName) => (
-              <Tag tag={slugifyStr(tagName)} tagName={tagName} size="sm" />
+              <Tag {tagName} size="sm" />
             ))}
           </ul>
         )}

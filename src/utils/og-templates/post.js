@@ -1,138 +1,32 @@
 import satori from "satori";
-// import { html } from "satori-html";
 import loadGoogleFonts from "../loadGoogleFont";
-
-/**
- * Open Graph Image Template for Blog Posts
- *
- * This template generates social media preview cards for blog posts.
- *
- * CUSTOMIZATION: We override the default behavior to show "shaunhawk.com"
- * on the right side instead of the author name (Shaun Hawk).
- * This avoids redundancy since the author name already appears on the left
- * with "by Shaun Hawk".
- */
-
-// const markup = html`<div
-//       style={{
-//         background: "#fefbfb",
-//         width: "100%",
-//         height: "100%",
-//         display: "flex",
-//         alignItems: "center",
-//         justifyContent: "center",
-//       }}
-//     >
-//       <div
-//         style={{
-//           position: "absolute",
-//           top: "-1px",
-//           right: "-1px",
-//           border: "4px solid #000",
-//           background: "#ecebeb",
-//           opacity: "0.9",
-//           borderRadius: "4px",
-//           display: "flex",
-//           justifyContent: "center",
-//           margin: "2.5rem",
-//           width: "88%",
-//           height: "80%",
-//         }}
-//       />
-
-//       <div
-//         style={{
-//           border: "4px solid #000",
-//           background: "#fefbfb",
-//           borderRadius: "4px",
-//           display: "flex",
-//           justifyContent: "center",
-//           margin: "2rem",
-//           width: "88%",
-//           height: "80%",
-//         }}
-//       >
-//         <div
-//           style={{
-//             display: "flex",
-//             flexDirection: "column",
-//             justifyContent: "space-between",
-//             margin: "20px",
-//             width: "90%",
-//             height: "90%",
-//           }}
-//         >
-//           <p
-//             style={{
-//               fontSize: 72,
-//               fontWeight: "bold",
-//               maxHeight: "84%",
-//               overflow: "hidden",
-//             }}
-//           >
-//             {post.data.title}
-//           </p>
-//           <div
-//             style={{
-//               display: "flex",
-//               justifyContent: "space-between",
-//               width: "100%",
-//               marginBottom: "8px",
-//               fontSize: 28,
-//             }}
-//           >
-//             <span>
-//               by{" "}
-//               <span
-//                 style={{
-//                   color: "transparent",
-//                 }}
-//               >
-//                 "
-//               </span>
-//               <span style={{ overflow: "hidden", fontWeight: "bold" }}>
-//                 {post.data.author}
-//               </span>
-//             </span>
-
-//             <span style={{ overflow: "hidden", fontWeight: "bold" }}>
-//               {SITE.title}
-//             </span>
-//           </div>
-//         </div>
-//       </div>
-//     </div>`;
+import { OG_THEME, truncateText } from "./theme";
 
 export default async (post) => {
+  const primaryTag = post.data.tags?.[0];
+  const description = truncateText(post.data.description, 120);
+  const fontText =
+    post.data.title + post.data.author + description + (primaryTag ?? "") + "shaunhawk.com";
+
   return satori(
     {
       type: "div",
       props: {
         style: {
-          background: "#fefbfb",
+          background: OG_THEME.background,
           width: "100%",
           height: "100%",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          flexDirection: "row",
         },
         children: [
           {
             type: "div",
             props: {
               style: {
-                position: "absolute",
-                top: "-1px",
-                right: "-1px",
-                border: "4px solid #000",
-                background: "#ecebeb",
-                opacity: "0.9",
-                borderRadius: "4px",
-                display: "flex",
-                justifyContent: "center",
-                margin: "2.5rem",
-                width: "88%",
-                height: "80%",
+                width: "12px",
+                height: "100%",
+                background: OG_THEME.accent,
               },
             },
           },
@@ -140,88 +34,106 @@ export default async (post) => {
             type: "div",
             props: {
               style: {
-                border: "4px solid #000",
-                background: "#fefbfb",
-                borderRadius: "4px",
                 display: "flex",
-                justifyContent: "center",
-                margin: "2rem",
-                width: "88%",
-                height: "80%",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                flex: 1,
+                padding: "56px 64px",
               },
-              children: {
-                type: "div",
-                props: {
-                  style: {
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    margin: "20px",
-                    width: "90%",
-                    height: "90%",
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                      flex: 1,
+                    },
+                    children: [
+                      primaryTag
+                        ? {
+                            type: "span",
+                            props: {
+                              style: {
+                                alignSelf: "flex-start",
+                                background: OG_THEME.accentMuted,
+                                color: OG_THEME.accent,
+                                fontSize: 22,
+                                fontWeight: 600,
+                                padding: "8px 16px",
+                                borderRadius: "999px",
+                              },
+                              children: primaryTag,
+                            },
+                          }
+                        : null,
+                      {
+                        type: "p",
+                        props: {
+                          style: {
+                            fontSize: 64,
+                            fontWeight: 700,
+                            color: OG_THEME.foreground,
+                            lineHeight: 1.1,
+                            margin: 0,
+                            maxHeight: "280px",
+                            overflow: "hidden",
+                          },
+                          children: post.data.title,
+                        },
+                      },
+                      description
+                        ? {
+                            type: "p",
+                            props: {
+                              style: {
+                                fontSize: 28,
+                                color: OG_THEME.mutedText,
+                                lineHeight: 1.4,
+                                margin: 0,
+                                maxHeight: "120px",
+                                overflow: "hidden",
+                              },
+                              children: description,
+                            },
+                          }
+                        : null,
+                    ].filter(Boolean),
                   },
-                  children: [
-                    {
-                      type: "p",
-                      props: {
-                        style: {
-                          fontSize: 72,
-                          fontWeight: "bold",
-                          maxHeight: "84%",
-                          overflow: "hidden",
-                        },
-                        children: post.data.title,
-                      },
-                    },
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          display: "flex",
-                          justifyContent: "space-between",
-                          width: "100%",
-                          marginBottom: "8px",
-                          fontSize: 28,
-                        },
-                        children: [
-                          {
-                            type: "span",
-                            props: {
-                              children: [
-                                "by ",
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: { color: "transparent" },
-                                    children: '"',
-                                  },
-                                },
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: {
-                                      overflow: "hidden",
-                                      fontWeight: "bold",
-                                    },
-                                    children: post.data.author,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: {
-                              style: { overflow: "hidden", fontWeight: "bold" },
-                              children: "shaunhawk.com",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
                 },
-              },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      width: "100%",
+                      borderTop: `2px solid ${OG_THEME.border}`,
+                      paddingTop: "24px",
+                      fontSize: 26,
+                      color: OG_THEME.mutedText,
+                    },
+                    children: [
+                      {
+                        type: "span",
+                        props: {
+                          style: { fontWeight: 600, color: OG_THEME.foreground },
+                          children: `by ${post.data.author}`,
+                        },
+                      },
+                      {
+                        type: "span",
+                        props: {
+                          style: { fontWeight: 700, color: OG_THEME.accent },
+                          children: "shaunhawk.com",
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
             },
           },
         ],
@@ -231,7 +143,7 @@ export default async (post) => {
       width: 1200,
       height: 630,
       embedFont: true,
-      fonts: await loadGoogleFonts(post.data.title + post.data.author + "shaunhawk.com" + "by"),
+      fonts: await loadGoogleFonts(fontText),
     }
   );
 };

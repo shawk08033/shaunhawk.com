@@ -3,12 +3,15 @@ import type { APIRoute } from "astro";
 export const GET: APIRoute = async () => {
   const markdownContent = `# Shaun Hawk
 
-Lead Developer of Huckleberry Services at FSM Controls. Still pumping out PHP while slowly moving to JS/TS, Rust and Go.
+Senior Manager, Data Management & Technology at FSM Controls. Charged with the full rollout, modernization, and go-to-market for Huckleberry Services.
+
+Notes on AI tooling, homelab projects, and building software in the real world.
 
 <iframe src="https://github.com/sponsors/shawk08033/button" title="Sponsor shawk08033" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
 
 ## Navigation
 
+- [Projects](/projects)
 - [About](/about.md)
 - [Resume](/resume)
 - [Recent Posts](/posts.md)

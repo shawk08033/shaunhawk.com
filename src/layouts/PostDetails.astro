@@ -122,7 +122,7 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
     >
       {title}
     </h1>
-    <div class="flex items-center justify-between gap-4 mt-2 mb-6">
+    <div class="flex items-center justify-between gap-4 mt-2 mb-2">
       <div class="flex items-center gap-3">
         <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
         {
@@ -136,6 +136,13 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
       </div>
       <EditPost class="max-sm:hidden" {hideEditPost} {post} />
     </div>
+    {
+      tags.length > 0 && (
+        <ul class="mb-6 flex flex-wrap gap-x-2 gap-y-1" aria-label="Tags">
+          {tags.map((tag) => <Tag tagName={tag} />)}
+        </ul>
+      )
+    }
     <article id="article" class="mx-auto prose mt-6 max-w-3xl">
       {
         heroImage && (
@@ -153,10 +160,6 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
     <hr class="my-8 border-dashed" />
 
     <EditPost class="sm:hidden" {hideEditPost} {post} />
-
-    <ul class="mt-4 mb-8 sm:my-8">
-      {tags.map((tag) => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
-    </ul>
 
     <div
       class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4"

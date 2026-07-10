@@ -34,7 +34,7 @@ export const SITE: Site = {
   website: "https://shaunhawk.com/",
   author: "Shaun Hawk",
   profile: "https://shaunhawk.com/about",
-  desc: "Lead Developer of Huckleberry Services at FSM Controls. PHP, JS/TS, Rust and Go.",
+  desc: "Senior Manager, Data Management & Technology at FSM Controls. Leading the rollout, modernization, and go-to-market for Huckleberry Services.",
   title: "Shaun Hawk",
   ogImage: "profile.jpg",
   lightAndDarkMode: true,
