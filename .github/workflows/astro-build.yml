@@ -32,3 +32,6 @@ jobs:
 
       - name: Check build output
         run: ls -la dist/
+
+      - name: Verify RSS feed
+        run: test -s dist/rss.xml && grep -q "<item>" dist/rss.xml

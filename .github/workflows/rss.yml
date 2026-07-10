@@ -1,0 +1,48 @@
+name: Update RSS Feed
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/content/blog/**"
+      - "src/pages/rss.xml.ts"
+      - "src/consts.ts"
+      - "src/config.ts"
+      - "src/utils/getPath.ts"
+      - "src/utils/getSortedPosts.ts"
+      - "src/utils/postFilter.ts"
+      - "scripts/sync-rss.mjs"
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "20"
+  ASTRO_TELEMETRY_DISABLED: "1"
+
+permissions:
+  contents: write
+
+jobs:
+  update-rss:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate rss.xml
+        run: npm run rss:sync
+
+      - name: Commit updated feed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update rss.xml"
+          file_pattern: public/rss.xml
